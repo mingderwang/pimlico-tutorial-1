@@ -55,3 +55,13 @@ const smartAccountClient = createSmartAccountClient({
 const gasPrices = await smartAccountClient.getUserOperationGasPrice()
  
 console.log(gasPrices)
+
+const txHash = await smartAccountClient.sendTransaction({
+	to: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+	value: 0n,
+	data: "0x1234",
+	maxFeePerGas: gasPrices.fast.maxFeePerGas,
+	maxPriorityFeePerGas: gasPrices.fast.maxPriorityFeePerGas,
+})
+ 
+console.log(`User operation included: https://sepolia.etherscan.io/tx/${txHash}`)
