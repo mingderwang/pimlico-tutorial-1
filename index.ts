@@ -20,7 +20,7 @@ const privateKey =
 		return pk
 	})()
 
-console.log(privateKey)
+console.log(paymasterUrl)
  
 export const publicClient = createPublicClient({
 	transport: http("https://rpc.ankr.com/eth_sepolia"),
@@ -38,3 +38,20 @@ const account = await privateKeyToSafeSmartAccount(publicClient, {
 })
  
 console.log(`Smart account address: https://sepolia.etherscan.io/address/${account.address}`)
+
+const bundlerUrl = `https://api.pimlico.io/v1/sepolia/rpc?apikey=${apiKey}`
+ 
+console.log(bundlerUrl)
+
+const smartAccountClient = createSmartAccountClient({
+	account,
+	chain: sepolia,
+	transport: http(bundlerUrl),
+	sponsorUserOperation: paymasterClient.sponsorUserOperation,
+})
+	.extend(bundlerActions)
+	.extend(pimlicoBundlerActions)
+ 
+const gasPrices = await smartAccountClient.getUserOperationGasPrice()
+ 
+console.log(gasPrices)
