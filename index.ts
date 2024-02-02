@@ -9,4 +9,32 @@ import { createPimlicoBundlerClient, createPimlicoPaymasterClient } from "permis
 import { privateKeyToSimpleSmartAccount, privateKeyToSafeSmartAccount } from "permissionless/accounts";
 import { writeFileSync } from 'fs'
 
-console.log("Hello world!")
+const apiKey = "0b58e9b6-c1ee-4f7e-954b-53b5f04cdde5"
+const paymasterUrl = `https://api.pimlico.io/v2/sepolia/rpc?apikey=${apiKey}`
+ 
+const privateKey =
+	(process.env.PRIVATE_KEY as Hex) ??
+	(() => {
+		const pk = generatePrivateKey()
+		writeFileSync(".env", `PRIVATE_KEY=${pk}`)
+		return pk
+	})()
+
+console.log(privateKey)
+ 
+export const publicClient = createPublicClient({
+	transport: http("https://rpc.ankr.com/eth_sepolia"),
+})
+ 
+export const paymasterClient = createPimlicoPaymasterClient({
+	transport: http(paymasterUrl),
+})
+
+
+const account = await privateKeyToSafeSmartAccount(publicClient, {
+	privateKey,
+	safeVersion: "1.4.1", // simple version
+	entryPoint: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789", // global entrypoint
+})
+ 
+console.log(`Smart account address: https://sepolia.etherscan.io/address/${account.address}`)
