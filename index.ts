@@ -9,7 +9,8 @@ import { createPimlicoBundlerClient, createPimlicoPaymasterClient } from "permis
 import { privateKeyToSimpleSmartAccount, privateKeyToSafeSmartAccount } from "permissionless/accounts";
 import { writeFileSync } from 'fs'
 
-const apiKey = "0b58e9b6-c1ee-4f7e-954b-53b5f04cdde5"
+const apiKey = process.env.pimlico_API_KEY; 
+conosle.log(apiKey)
 const paymasterUrl = `https://api.pimlico.io/v2/sepolia/rpc?apikey=${apiKey}`
  
 const privateKey =
