@@ -10,7 +10,7 @@ import { privateKeyToSimpleSmartAccount, privateKeyToSafeSmartAccount } from "pe
 import { writeFileSync } from 'fs'
 
 const apiKey = process.env.pimlico_API_KEY; 
-conosle.log(apiKey)
+console.log(apiKey)
 const paymasterUrl = `https://api.pimlico.io/v2/sepolia/rpc?apikey=${apiKey}`
  
 const privateKey =
