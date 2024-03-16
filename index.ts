@@ -60,7 +60,7 @@ console.log(gasPrices)
 const txHash = await smartAccountClient.sendTransaction({
 	to: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
 	value: 0n,
-	data: "0x1234",
+	data: "0x12344321",
 	maxFeePerGas: gasPrices.fast.maxFeePerGas,
 	maxPriorityFeePerGas: gasPrices.fast.maxPriorityFeePerGas,
 })
